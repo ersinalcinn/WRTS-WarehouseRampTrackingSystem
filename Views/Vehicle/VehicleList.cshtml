@@ -1,0 +1,100 @@
+﻿@model IEnumerable<wrts.Models.Vehicles>
+@{
+    ViewData["Title"] = "VehicleList";
+}
+
+<h1>VehicleList</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleTypeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.company_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.waybill_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driver_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driver_surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driver_language)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.citizenship_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.arrival_time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.departure_time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vehicle_status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.company_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.waybill_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.driver_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.driver_surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.driver_language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.citizenship_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.arrival_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.departure_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vehicle_status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.VehicleID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.VehicleID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.VehicleID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
