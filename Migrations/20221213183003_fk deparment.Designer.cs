@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wrts.Models;
 
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    partial class WRTSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221213183003_fk deparment")]
+    partial class fkdeparment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,10 +28,15 @@ namespace wrts.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DepartmentName")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VehiclesVehicleID")
+                        .HasColumnType("int");
 
                     b.HasKey("DepartmentID");
+
+                    b.HasIndex("VehiclesVehicleID");
 
                     b.ToTable("Department");
                 });
@@ -145,6 +152,15 @@ namespace wrts.Migrations
                     b.HasKey("VehicleID");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("wrts.Models.Department", b =>
+                {
+                    b.HasOne("wrts.Models.Vehicles", "Vehicles")
+                        .WithMany()
+                        .HasForeignKey("VehiclesVehicleID");
+
+                    b.Navigation("Vehicles");
                 });
 
             modelBuilder.Entity("wrts.Models.Ramp", b =>

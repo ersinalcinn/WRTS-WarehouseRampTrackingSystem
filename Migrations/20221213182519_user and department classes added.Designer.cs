@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wrts.Models;
 
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    partial class WRTSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221213182519_user and department classes added")]
+    partial class useranddepartmentclassesadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,10 +28,15 @@ namespace wrts.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DepartmentName")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VehiclesVehicleID")
+                        .HasColumnType("int");
 
                     b.HasKey("DepartmentID");
+
+                    b.HasIndex("VehiclesVehicleID");
 
                     b.ToTable("Department");
                 });
@@ -58,7 +65,11 @@ namespace wrts.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<string>("DepartmentID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentID1")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -86,7 +97,7 @@ namespace wrts.Migrations
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("DepartmentID");
+                    b.HasIndex("DepartmentID1");
 
                     b.ToTable("User");
                 });
@@ -147,6 +158,15 @@ namespace wrts.Migrations
                     b.ToTable("Vehicles");
                 });
 
+            modelBuilder.Entity("wrts.Models.Department", b =>
+                {
+                    b.HasOne("wrts.Models.Vehicles", "Vehicles")
+                        .WithMany()
+                        .HasForeignKey("VehiclesVehicleID");
+
+                    b.Navigation("Vehicles");
+                });
+
             modelBuilder.Entity("wrts.Models.Ramp", b =>
                 {
                     b.HasOne("wrts.Models.Vehicles", "Vehicles")
@@ -162,9 +182,7 @@ namespace wrts.Migrations
                 {
                     b.HasOne("wrts.Models.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentID1");
 
                     b.Navigation("Department");
                 });
