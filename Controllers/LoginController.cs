@@ -22,13 +22,12 @@ namespace wrts.Controllers
         public async Task<IActionResult> Check(User loginRequest)
         {
            
-            var userdetails = db.User.FirstOrDefault(x => x.Email == loginRequest.Email && loginRequest.Password == loginRequest.Password);
+            var userdetails = db.User.FirstOrDefault(x => x.Email == loginRequest.Email && x.Password == loginRequest.Password);
             var userdepartment = loginRequest.DepartmentID.ToString();
             if (userdetails != null)
             {
-                var claims = new List<Claim>{
-                    new Claim(ClaimTypes.Name, loginRequest.Name)
-                };
+                var claims = new List<Claim>();
+                claims.Add (new Claim(ClaimTypes.Name, userdetails.Name));
                
                 var useridentity = new ClaimsIdentity(claims,"Login");
                 ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
