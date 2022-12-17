@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using wrts.Migrations;
 
 namespace wrts.Controllers
 {
@@ -28,7 +29,12 @@ namespace wrts.Controllers
             {
                 var claims = new List<Claim>();
                 claims.Add (new Claim(ClaimTypes.Name, userdetails.Name));
-               
+                TempData["Name"] = userdetails.Name;
+                TempData["SName"] = userdetails.Surname;
+
+                var x = db.Department.Find(userdetails.DepartmentID);
+                TempData["Department"] = x.DepartmentName;
+
                 var useridentity = new ClaimsIdentity(claims,"Login");
                 ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
                 await HttpContext.SignInAsync(principal);
@@ -36,7 +42,9 @@ namespace wrts.Controllers
             }
             else
             {
+                TempData["message"] = "Email or password wrong";
                 return RedirectToAction("Index", "Login");
+                
             }
                  
         }
@@ -44,7 +52,7 @@ namespace wrts.Controllers
         {
             await HttpContext.SignOutAsync();
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Login");
         }
     }
 }
