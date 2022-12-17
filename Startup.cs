@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +25,14 @@ namespace wrts
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // + Cookie Auth
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(opt =>
+                    {
+                        opt.LoginPath = "/Login/Index/";
+                    });
+            // -
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +52,10 @@ namespace wrts
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            // + Cookie Auth
+            app.UseAuthentication();
+            // -
 
             app.UseAuthorization();
 

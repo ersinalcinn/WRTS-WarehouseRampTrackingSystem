@@ -1,22 +1,8 @@
-﻿@model wrts.Models.User
-@{
+﻿@{
     Layout = "_loginLayout";
 }
-<style>
-    body {
-        background-image: url('img/bg.jpg') ;
-        background-size: 100% 100%;
-    }
+@model wrts.Models.User
 
-    .btn-login {
-        font-size: 0.9rem;
-        letter-spacing: 0.05rem;
-        padding: 0.75rem 1rem;
-    }
-    
-    
-    
-    </style>
 <body>
     <div class="container">
         <div class="row">
@@ -27,7 +13,7 @@
                         
                         
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-                        <form asp-controller="Login" asp-action="CheckLogin" >
+                        <form asp-controller="Login" asp-action="Check" method="get" >
                             <div class="form-floating mb-3">
                                 <label for="floatingInput">Email address</label>
                                 
