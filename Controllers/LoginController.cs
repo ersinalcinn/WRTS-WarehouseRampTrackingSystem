@@ -10,19 +10,13 @@ using wrts.Migrations;
 using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Http;
 using System;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Security.Principal;
 
 namespace wrts.Controllers
 {
     public class LoginController : Controller
     {
-        WRTSDbContext db=new WRTSDbContext();
+        WRTSDbContext db = new WRTSDbContext();
 
         public IActionResult Index()
         {

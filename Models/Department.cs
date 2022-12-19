@@ -8,6 +8,15 @@ namespace wrts.Models
         public int DepartmentID { get; set; }
 
         public string DepartmentName { get; set; }
-        
+
+        public enum Departments
+        {
+            Admin,
+            Security,
+            RampStaff,
+            Dispatcher
+        }
+
     }
+    
 }

@@ -1,0 +1,66 @@
+﻿@model wrts.Models.User
+@{
+    ViewData["Title"] = "Add User";
+    Layout = "_Layout";
+}
+
+<h1>Add User</h1>
+<hr />
+<div class="row my-5 justify-content-center">
+    <div class="col-lg-3">
+        <form asp-action="Create" asp-controller="User">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control form-control-user" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control form-control-user" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordVerify" class="control-label"></label>
+                <input asp-for="PasswordVerify" class="form-control form-control-user" />
+                <span asp-validation-for="PasswordVerify" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control form-control-user" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control form-control-user" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentID" class="control-label"></label>
+                <br>
+                
+            </div>
+            <br> 
+            <select asp-for="DepartmentID">
+                <option value="1">Admin</option>
+                <option value="2">Security</option>
+                <option value="3">RampStaff</option>
+                <option value="4">Dispatcher</option>
+            </select>
+            <br> 
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-success btn-block" />
+            </div>
+            <br>
+            @if (TempData["message"] != null)
+            {
+                <h6 style="color:red; text-align:center;">@TempData["message"]</h6>
+            }
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
