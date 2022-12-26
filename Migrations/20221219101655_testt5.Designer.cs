@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wrts.Models;
 
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    partial class WRTSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221219101655_testt5")]
+    partial class testt5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

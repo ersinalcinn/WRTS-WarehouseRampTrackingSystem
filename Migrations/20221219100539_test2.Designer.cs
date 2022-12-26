@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wrts.Models;
 
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    partial class WRTSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221219100539_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,7 +95,7 @@ namespace wrts.Migrations
 
             modelBuilder.Entity("wrts.Models.Vehicles", b =>
                 {
-                    b.Property<int?>("VehicleID")
+                    b.Property<int>("VehicleID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

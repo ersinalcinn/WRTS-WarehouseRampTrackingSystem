@@ -1,13 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace wrts.Models
 {
     public class Vehicles
     {
         [Key]
-        public int VehicleID { get; set; }
+        [AllowNull]
+        public Nullable<int> VehicleID { get; set; }
         
         public int VehicleTypeID { get; set; }
         [Required(ErrorMessage ="Company name can not be empty...")]

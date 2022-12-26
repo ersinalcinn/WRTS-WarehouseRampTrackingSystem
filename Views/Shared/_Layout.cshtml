@@ -129,7 +129,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                    <a asp-controller="User" asp-action="ListUser">
+                                            <a asp-controller="User" asp-action="ListUser">
                                                 <i class="bi bi-circle"></i><span>List Users</span>
                                             </a>
                                         </li>
@@ -146,17 +146,12 @@
                                     </a>
                                     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                         <li>
-                                            <a href="#">
+                                            <a asp-controller="Ramp" asp-action="AddRamp" >
                                                 <i class="bi bi-circle"></i><span>Add Ramp</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Delete Ramp</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="forms-editors.html">
+                                            <a asp-controller="Ramp" asp-action="ListRamp">
                                                 <i class="bi bi-circle"></i><span>List Ramps</span>
                                             </a>
                                         </li>
@@ -172,13 +167,13 @@
                                     </a>
                                     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                         <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Add Ramp</span>
+                                        <a asp-controller="ParkingLot" asp-action="AddParkingLot">
+                                        <i class="bi bi-circle"></i><span>Add Parking Lots</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="forms-editors.html">
-                                                <i class="bi bi-circle"></i><span>Add Parking Lots</span>
+                                        <a asp-controller="ParkingLot" asp-action="ListParkingLot">
+                                                <i class="bi bi-circle"></i><span>List Parking Lots</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -189,10 +184,15 @@
                                     </a>
                                     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                         <li>
-                                            <a href="#">
+                                            <a asp-controller="Vehicles" asp-action="AddVehicle">
                                                 <i class="bi bi-circle"></i><span>Add Vehicle</span>
                                             </a>
                                         </li>
+                                <li>
+                                    <a asp-controller="Vehicles" asp-action="ListVehicle">
+                                        <i class="bi bi-circle"></i><span>List Vehicle</span>
+                                    </a>
+                                </li>
                                     </ul>
                                 </li>
 
