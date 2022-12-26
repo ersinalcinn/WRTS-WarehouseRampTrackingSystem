@@ -1,0 +1,47 @@
+﻿@model IEnumerable<wrts.Models.ParkingSpot>
+
+@{
+    ViewData["Title"] = "ListParkingSpot";
+}
+
+<h1>ListParkingSpot</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkStatusID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkingLotID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkStatusID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkingLotID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ParkingSpotID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ParkingSpotID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ParkingSpotID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

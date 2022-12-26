@@ -25,6 +25,18 @@ namespace wrts.Controllers
             ViewBag.dgr = degerler;
             return View();
         }
+        public IActionResult ListParkingLot()
+        {
+            var parkinglot = dbContext.ParkingLot;
+            return View(parkinglot);
+        }
+         public IActionResult ListParkingSpot(int id)
+        {
+            
+           // var parkingspot = dbContext.ParkingSpot.Select(;
+            
+            return View(parkingspot);
+        }
         public IActionResult CreateParkingLot(ParkingLot p)
         {
 
