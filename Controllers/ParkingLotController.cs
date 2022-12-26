@@ -35,7 +35,7 @@ namespace wrts.Controllers
             
            // var parkingspot = dbContext.ParkingSpot.Select(;
             
-            return View(parkingspot);
+            return View();
         }
         public IActionResult CreateParkingLot(ParkingLot p)
         {
