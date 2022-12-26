@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wrts.Models;
 
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    partial class WRTSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226062154_parking-lot added")]
+    partial class parkinglotadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,27 +56,6 @@ namespace wrts.Migrations
                     b.ToTable("ParkingLot");
                 });
 
-            modelBuilder.Entity("wrts.Models.ParkingSpot", b =>
-                {
-                    b.Property<int>("ParkingSpotID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ParkStatusID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParkingLotID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ParkingSpotID");
-
-                    b.ToTable("ParkingSpot");
-                });
-
             modelBuilder.Entity("wrts.Models.Ramp", b =>
                 {
                     b.Property<int>("RampID")
@@ -86,6 +67,8 @@ namespace wrts.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("RampID");
+
+                    b.HasIndex("VehiclesID");
 
                     b.ToTable("Ramps");
                 });
@@ -128,21 +111,6 @@ namespace wrts.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("wrts.Models.VehicleType", b =>
-                {
-                    b.Property<int>("VehicleTypeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("VehicleTypeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VehicleTypeID");
-
-                    b.ToTable("VehicleType");
                 });
 
             modelBuilder.Entity("wrts.Models.Vehicles", b =>
@@ -199,6 +167,17 @@ namespace wrts.Migrations
                     b.HasKey("VehicleID");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("wrts.Models.Ramp", b =>
+                {
+                    b.HasOne("wrts.Models.Vehicles", "Vehicles")
+                        .WithMany()
+                        .HasForeignKey("VehiclesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicles");
                 });
 
             modelBuilder.Entity("wrts.Models.User", b =>

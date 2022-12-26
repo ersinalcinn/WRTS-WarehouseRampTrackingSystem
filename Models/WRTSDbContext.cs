@@ -9,7 +9,9 @@ namespace wrts.Models
         public DbSet<Vehicles> Vehicles { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Department> Department { get; set; }
-
+        public DbSet<ParkingLot> ParkingLot { get; set; }
+        public DbSet<ParkingSpot> ParkingSpot { get; set; }
+        public DbSet<VehicleType> VehicleType { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             

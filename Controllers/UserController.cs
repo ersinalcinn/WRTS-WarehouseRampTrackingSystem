@@ -16,7 +16,15 @@ namespace wrts.Controllers
         }
         public IActionResult AddUser()
         {
+              List<SelectListItem> degerler = (from i in dbContext.Department.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text=i.DepartmentName,
+                                                 Value=i.DepartmentID.ToString()
+                                             }).ToList();
+            ViewBag.dgr = degerler;
             return View();
+            
         }
         public IActionResult Create(User u)
         {

@@ -41,12 +41,7 @@
                 
             </div>
             <br> 
-            <select asp-for="DepartmentID">
-                <option value="1">Admin</option>
-                <option value="2">Security</option>
-                <option value="3">RampStaff</option>
-                <option value="4">Dispatcher</option>
-            </select>
+            @Html.DropDownListFor(m=>m.DepartmentID,(List<SelectListItem>)ViewBag.dgr)
             <br> 
             <div class="form-group">
                 <input type="submit" value="Add" class="btn btn-success btn-block" />
@@ -60,7 +55,4 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

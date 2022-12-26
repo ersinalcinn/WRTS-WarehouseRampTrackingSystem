@@ -10,6 +10,7 @@ namespace wrts.Models
 
         public int RampID { get; set; }
         public int VehiclesID { get; set; }
-        public virtual Vehicles Vehicles { get; set; }
+       
+      
     }
 }

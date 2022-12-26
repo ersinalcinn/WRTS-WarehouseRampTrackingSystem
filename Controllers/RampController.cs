@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis;
-using System.Collections.Generic;
 using wrts.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace wrts.Controllers
 {
-    
+
     public class RampController : Controller
     {
         WRTSDbContext dbContext = new WRTSDbContext();
@@ -23,14 +19,19 @@ namespace wrts.Controllers
 
         public IActionResult ListRamp()
         {
-            return View();
+            var ramps = dbContext.Ramps;
+            return View(ramps);
         }
         [HttpPost]
         public IActionResult CreateRamp(int num)
         {
+            
             for (int i = 0; i < 5; i++)
             {
-                dbContext.Add(null);
+
+                Ramp r = new Ramp();
+                r.VehiclesID = 0;
+                dbContext.Add(r);
                 dbContext.SaveChanges();
             }
 

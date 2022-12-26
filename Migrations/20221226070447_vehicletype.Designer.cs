@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wrts.Models;
 
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    partial class WRTSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226070447_vehicletype")]
+    partial class vehicletype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,6 +88,8 @@ namespace wrts.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("RampID");
+
+                    b.HasIndex("VehiclesID");
 
                     b.ToTable("Ramps");
                 });
@@ -199,6 +203,17 @@ namespace wrts.Migrations
                     b.HasKey("VehicleID");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("wrts.Models.Ramp", b =>
+                {
+                    b.HasOne("wrts.Models.Vehicles", "Vehicles")
+                        .WithMany()
+                        .HasForeignKey("VehiclesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicles");
                 });
 
             modelBuilder.Entity("wrts.Models.User", b =>
