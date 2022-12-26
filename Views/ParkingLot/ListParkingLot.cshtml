@@ -4,11 +4,12 @@
     ViewData["Title"] = "ListParkingLot";
 }
 
-<h1>ListParkingLot</h1>
+<h2 style="text-align:center">Parking Lot Actions</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (TempData["message"] != null)
+{
+    <h6 style="color:red; text-align:center;">@TempData["message"]</h6>
+}
 <table class="table">
     <thead>
         <tr>
@@ -38,10 +39,11 @@
             </td>
 
             <td>
-                    <a asp-action="ListParkingSpot" asp-route-id="@item.ParkingLotID">View Parking Spots</a>
-                <a asp-action="AddParkingSpot" asp-controller="ParkingSpot" asp-route-id="@item.ParkingLotID">Add Parking Spots</a> |
-                <a asp-action="Edit" asp-route-id="@item.ParkingLotID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ParkingLotID">Delete</a>
+
+                    <a asp-action="ListParkingSpot" asp-route-id="@item.ParkingLotID" class="btn btn-success btn-block">View Parking Spots</a>
+                    <a asp-action="AddParkingSpot" asp-controller="ParkingSpot" asp-route-id="@item.ParkingLotID" class="btn btn-primary btn-block">Add Parking Spots</a> 
+                    <a asp-action="EditParkingLot" asp-route-id="@item.ParkingLotID" class="btn btn-warning btn-block">Edit</a> 
+                    <a asp-action="DeleteParkingLot" asp-route-id="@item.ParkingLotID" class="btn btn-danger btn-block">Delete</a>
             </td>
         </tr>
 }

@@ -32,10 +32,13 @@ namespace wrts.Controllers
         }
          public IActionResult ListParkingSpot(int id)
         {
+
+            // var parkingspot = dbContext.ParkingSpot.Select(;
+           
+            List<ParkingSpot> objList = (from i in dbContext.ParkingSpot.ToList()
+                                         where i.ParkingSpotID == id select i).ToList();
+            return View(objList);
             
-           // var parkingspot = dbContext.ParkingSpot.Select(;
-            
-            return View();
         }
         public IActionResult CreateParkingLot(ParkingLot p)
         {
@@ -61,6 +64,27 @@ namespace wrts.Controllers
             {
                 return RedirectToAction("AddUser", "User");
             }
+        }
+        public IActionResult DeleteParkingLot(int id)
+        {
+            var parkinglot = dbContext.ParkingLot.FirstOrDefault(x => x.ParkingLotID == id);
+            var checkParkingSpot = dbContext.ParkingSpot.FirstOrDefault(x => x.ParkingLotID == id);
+            if (checkParkingSpot!=null)
+            {
+                
+                TempData["message"] = "Kayıt silinemedi lütfen ilk önce park yerlerini siliniz..";
+                return RedirectToAction("ListParkingLot", "ParkingLot");
+            }
+            else
+            {
+                dbContext.Remove(parkinglot);
+                dbContext.SaveChanges();
+                TempData["message"] = "İstenilen kayıt başarıyla silindi.";
+                return RedirectToAction("ListParkingLot", "ParkingLot");
+            }
+                    
+
+            
         }
     }
 }

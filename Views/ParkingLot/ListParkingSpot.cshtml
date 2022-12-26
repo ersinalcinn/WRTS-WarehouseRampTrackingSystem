@@ -3,12 +3,10 @@
 @{
     ViewData["Title"] = "ListParkingSpot";
 }
+<br /><br />
+<h2 style="text-align:center">Parking Spot Actions</h2>
 
-<h1>ListParkingSpot</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -37,9 +35,9 @@
                 @Html.DisplayFor(modelItem => item.ParkingLotID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ParkingSpotID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ParkingSpotID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ParkingSpotID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ParkingSpotID" class="btn btn-warning btn-block">Edit</a> 
+                    
+                    <a asp-action="Delete" asp-route-id="@item.ParkingSpotID" class="btn btn-danger btn-block">Delete</a>
             </td>
         </tr>
 }
