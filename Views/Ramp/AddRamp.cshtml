@@ -1,13 +1,11 @@
 ﻿@model wrts.Models.Ramp
 
 @{
-    ViewData["Title"] = "AddRamp";
+    ViewData["Title"] = "Add Ramp";
     Layout = "_Layout";
 }
 
-<h1>AddRamp</h1>
-
-<h4>Ramp</h4>
+<h1>Add Ramp</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,13 +15,10 @@
                 <label class="control-label">Rampa Sayısı </label>
                 <input type="number" name="num" class="form-control form-control-user" />
             </div>
+            <br>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Ekle" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>

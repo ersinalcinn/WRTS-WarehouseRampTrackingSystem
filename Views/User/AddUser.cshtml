@@ -38,11 +38,9 @@
             <div class="form-group">
                 <label asp-for="DepartmentID" class="control-label"></label>
                 <br>
-                
             </div>
-            <br> 
             @Html.DropDownListFor(m=>m.DepartmentID,(List<SelectListItem>)ViewBag.dgr)
-            <br> 
+            <br> <br>
             <div class="form-group">
                 <input type="submit" value="Add" class="btn btn-success btn-block" />
             </div>

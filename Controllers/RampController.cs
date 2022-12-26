@@ -26,7 +26,7 @@ namespace wrts.Controllers
         public IActionResult CreateRamp(int num)
         {
             
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < num; i++)
             {
 
                 Ramp r = new Ramp();

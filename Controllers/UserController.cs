@@ -54,6 +54,7 @@ namespace wrts.Controllers
         public IActionResult ListUser()
         {
             var user = dbContext.User;
+            
             return View(user);
         }
     }
