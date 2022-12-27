@@ -4,14 +4,19 @@
     ViewData["Title"] = "ListParkingSpot";
 }
 <br /><br />
+
 <h2 style="text-align:center">Parking Spot Actions</h2>
+@if (TempData["message"] != null)
+{
+    <h6 style="color:red; text-align:center;">@TempData["message"]</h6>
+}
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ParkStatusID)
+                @Html.DisplayNameFor(model => model.ParkStatus)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.VehicleID)
@@ -26,17 +31,29 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ParkStatusID)
+                    @Html.DisplayFor(modelItem => item.ParkStatus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VehicleID)
+                @{
+
+                        WRTSDbContext dbContext = new WRTSDbContext();
+                        var spot = dbContext.Vehicles.FirstOrDefault(x => x.VehicleID == item.VehicleID);
+                        string vehicleidentity = spot.driver_name+" "+spot.driver_surname+" "+spot.waybill_number;
+                    }
+                    @vehicleidentity
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParkingLotID)
+                    @{
+
+                       
+                        var parkinglot = dbContext.ParkingLot.FirstOrDefault(x => x.ParkingLotID == item.ParkingLotID);
+                        string parkinglotname = parkinglot.ParkingLotName;
+                    }
+                    @parkinglotname
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.ParkingSpotID" class="btn btn-warning btn-block">Edit</a> 
                     
+                    <a asp-action="Edit" asp-route-id="@item.ParkingSpotID" class="btn btn-warning btn-block">Edit</a> 
                     <a asp-action="Delete" asp-route-id="@item.ParkingSpotID" class="btn btn-danger btn-block">Delete</a>
             </td>
         </tr>

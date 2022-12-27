@@ -1,0 +1,37 @@
+﻿@model wrts.Models.ParkingSpot
+
+@{
+    ViewData["Title"] = "AddParkingSpot";
+}
+
+<h1>AddParkingSpot</h1>
+
+<h4>ParkingSpot</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateParkingSpot">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ParkStatus" class="control-label"></label>
+                <input asp-for="ParkStatus" class="form-control" />
+                <span asp-validation-for="ParkStatus" class="text-danger"></span>
+            </div>
+            <br>
+            <label class="control-label">Citizenship Number   :</label>
+            @Html.DropDownListFor(m=>m.VehicleID,(List<SelectListItem>)ViewBag.vehicle)
+            <br> <br>
+            <label class="control-label">Parking Lot Name   :</label>
+            @Html.DropDownListFor(m=>m.ParkingLotID,(List<SelectListItem>)ViewBag.parkinglot)
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

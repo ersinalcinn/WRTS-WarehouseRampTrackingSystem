@@ -12,6 +12,7 @@ namespace wrts.Models
         public DbSet<ParkingLot> ParkingLot { get; set; }
         public DbSet<ParkingSpot> ParkingSpot { get; set; }
         public DbSet<VehicleType> VehicleType { get; set; }
+        public DbSet<RampStates> RampStates { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
