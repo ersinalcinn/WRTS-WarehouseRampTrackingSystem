@@ -174,6 +174,30 @@ namespace wrts.Controllers
      
             return View();
         }
+        public IActionResult EditParkingLot(int id)
+        {
+            var parklot=dbContext.ParkingLot.FirstOrDefault(x=> x.ParkingLotID == id);
+            List<SelectListItem> degerler = (from i in dbContext.VehicleType.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = i.VehicleTypeName,
+                                                 Value = i.VehicleTypeID.ToString()
+                                             }).ToList();
+            ViewBag.dgr = degerler;
+            return View(parklot);
+        }
+        public IActionResult EditParkingSpot(int id)
+        {
+            var parklot = dbContext.ParkingLot.FirstOrDefault(x => x.ParkingLotID == id);
+            List<SelectListItem> degerler = (from i in dbContext.VehicleType.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = i.VehicleTypeName,
+                                                 Value = i.VehicleTypeID.ToString()
+                                             }).ToList();
+            ViewBag.dgr = degerler;
+            return View(parklot);
+        }
         public IActionResult CreateParkingSpot(ParkingSpot p)
         {
             
