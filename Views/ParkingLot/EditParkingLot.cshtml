@@ -1,0 +1,36 @@
+﻿@model wrts.Models.ParkingLot
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<h4>ParkingLot</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ChangeParkingLot">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ParkingLotID" />
+            <div class="form-group">
+                <label asp-for="ParkingLotName" class="control-label"></label>
+                <input asp-for="ParkingLotName" class="form-control" />
+                <span asp-validation-for="ParkingLotName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               <label class="control-label">Parking Lot Name   :</label>
+            @Html.DropDownListFor(m=>m.vehicleID,(List<SelectListItem>)ViewBag.dgr)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
