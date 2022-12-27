@@ -1,8 +1,31 @@
-﻿
+﻿@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
+
+
+
+<form id="selectLanguage" asp-controller="Home"
+      asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
+      method="post" role="form" style="width: 100%">
+    <select class="form-control" name="culture"
+            asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureList" onchange="this.form.submit()"></select>
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<p>Label : @Html.Translate("msj1")</p>
 @{
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Profile</h1>
-
+<h4>sdsd</h4>
+<h4>@ViewBag.Message</h4>

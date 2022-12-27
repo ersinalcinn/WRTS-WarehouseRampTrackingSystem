@@ -1,11 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -36,7 +46,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="#" class="logo d-flex align-items-center">
                 <img src="" />
                 <span class="d-none d-lg-block">WRTS</span>
             </a>
@@ -45,11 +55,14 @@
         <!-- End Logo -->
 
         <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            <form id="selectLanguage" asp-controller="Home"
+                  asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
+                  method="post" role="form" style="width: 300">
+                <select class="form-control" name="culture"
+                        asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureList" onchange="this.form.submit()"></select>
             </form>
         </div>
+
         <!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
@@ -61,6 +74,10 @@
                     </a>
                 </li>
                 <!-- End Search Icon-->
+
+
+
+
 
                 <li class="nav-item dropdown pe-3">
 
@@ -80,7 +97,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" asp-controller="Home" asp-action="Profile" >
+                            <a class="dropdown-item d-flex align-items-center" asp-controller="Home" asp-action="Profile">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -108,9 +125,9 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " href="#">
                     <i class="bi bi-grid"></i>
-                    <span>Control Panel</span>
+                    <span>@Html.Translate("kontrolpanel")</span>
                 </a>
             </li><!-- End Dashboard Nav -->
             @{
@@ -118,185 +135,186 @@
                 switch (job)
                 {
                     case "Admin":
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-menu-button-wide"></i><span>User Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-menu-button-wide"></i><span>@Html.Translate("userop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a asp-controller="User" asp-action="AddUser">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("useradd")</span>
                                     </a>
-                                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                            <a asp-controller="User" asp-action="AddUser" >
-                                                <i class="bi bi-circle"></i><span>Add User</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="User" asp-action="ListUser">
-                                                <i class="bi bi-circle"></i><span>List Users</span>
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
+                                </li>
+                                <li>
+                                    <a asp-controller="User" asp-action="ListUser">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("userlist")</span>
+                                    </a>
                                 </li>
 
-                                <!-- End Components Nav -->
 
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-journal-text"></i><span>Ramp Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </ul>
+                        </li>
+
+                        <!-- End Components Nav -->
+
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-journal-text"></i><span>@Html.Translate("rampop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a asp-controller="Ramp" asp-action="AddRamp">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("rampadd")</span>
                                     </a>
-                                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                            <a asp-controller="Ramp" asp-action="AddRamp" >
-                                                <i class="bi bi-circle"></i><span>Add Ramp</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="Ramp" asp-action="ListRamp">
-                                                <i class="bi bi-circle"></i><span>List Ramps</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
+                                </li>
+                                <li>
+                                    <a asp-controller="Ramp" asp-action="ListRamp">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("ramplist")</span>
+                                    </a>
                                 </li>
 
-                                <!-- End Forms Nav -->
+                            </ul>
+                        </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-layout-text-window-reverse"></i><span>Parking Lot Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <!-- End Forms Nav -->
+
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-layout-text-window-reverse"></i><span>@Html.Translate("parkinglotop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a asp-controller="ParkingLot" asp-action="AddParkingLot">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("parkinglotadd")</span>
                                     </a>
-                                    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                        <a asp-controller="ParkingLot" asp-action="AddParkingLot">
-                                        <i class="bi bi-circle"></i><span>Add Parking Lots</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                        <a asp-controller="ParkingLot" asp-action="ListParkingLot">
-                                                <i class="bi bi-circle"></i><span>List Parking Lots</span>
-                                            </a>
-                                        </li>
+                                </li>
+                                <li>
+                                    <a asp-controller="ParkingLot" asp-action="ListParkingLot">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("parkinglotlist")</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a asp-controller="ParkingLot" asp-action="AddParkingSpot">
-                                        <i class="bi bi-circle"></i><span>Add Parking Spot</span>
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("parkingspotadd")</span>
                                     </a>
                                 </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-layout-text-window-reverse"></i><span>Vehicle Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-layout-text-window-reverse"></i><span>@Html.Translate("vehicleop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a asp-controller="Vehicles" asp-action="AddVehicle">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("vehicleadd")</span>
                                     </a>
-                                    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                            <a asp-controller="Vehicles" asp-action="AddVehicle">
-                                                <i class="bi bi-circle"></i><span>Add Vehicle</span>
-                                            </a>
-                                        </li>
+                                </li>
                                 <li>
                                     <a asp-controller="Vehicles" asp-action="ListVehicle">
-                                        <i class="bi bi-circle"></i><span>List Vehicle</span>
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("vehiclelist")</span>
                                     </a>
                                 </li>
-                                    </ul>
-                                </li>
+                            </ul>
+                        </li>
 
                         break;
 
                     case "Dispatcher":
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-menu-button-wide"></i><span>Dispatcher Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-menu-button-wide"></i><span>@Html.Translate("dispatcherop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("shipmentop")</span>
                                     </a>
-                                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Shipment Operations</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Ramp Operations</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Parking Lot Operations</span>
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
                                 </li>
-                        break;
-                        case "RampStaff":
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-menu-button-wide"></i><span>Ramp Staff Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("rampop1")</span>
                                     </a>
-                                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>List Ramps</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Notify Security</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Notifications</span>
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
                                 </li>
-                        break;
-                        case "Security":
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-menu-button-wide"></i><span>Security Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("parkinglot1")</span>
                                     </a>
-                                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>List Vehicles</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Parking Lot</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="bi bi-circle"></i><span>Notifications</span>
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
                                 </li>
+
+
+                            </ul>
+                        </li>
                         break;
-                   
+                    case "RampStaff":
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-menu-button-wide"></i><span>@Html.Translate("rampstaffop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("listramp1")</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("notifysecurity")</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("notification")</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        break;
+                    case "Security":
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-menu-button-wide"></i><span>@Html.Translate("securityop")</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("vehiclelist2")</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("parkinglot2")</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("notify")</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        break;
+
                 }
-              }
-                
-                
+            }
 
-            
 
-            
+
+
+
+
 
         </ul>
 
     </aside><!-- End Sidebar-->
 
     <main id=main class="main">
-        @RenderBody()
+    @RenderBody()
+
     </main>
     <!-- End #main -->
     <!-- ======= Footer ======= -->

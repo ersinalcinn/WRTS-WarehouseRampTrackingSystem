@@ -7,6 +7,7 @@ using wrts.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using Microsoft.CodeAnalysis;
+using System.Globalization;
 
 namespace wrts.Controllers
 {
@@ -15,10 +16,33 @@ namespace wrts.Controllers
         WRTSDbContext dbContext = new WRTSDbContext();
         public IActionResult Index()
         {
+            var defaultCultures = new List<CultureInfo>()
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US"),
+            };
+
+            CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            var cultureItems = cinfo.Where(x => defaultCultures.Contains(x))
+                .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+                .ToList();
+            ViewData["Cultures"] = cultureItems;
+
             return View();
         }
         public IActionResult AddParkingLot()
         {
+            var defaultCultures = new List<CultureInfo>()
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US"),
+            };
+
+            CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            var cultureItems = cinfo.Where(x => defaultCultures.Contains(x))
+                .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+                .ToList();
+            ViewData["Cultures"] = cultureItems;
             List<SelectListItem> degerler = (from i in dbContext.VehicleType.ToList()
                                              select new SelectListItem
                                              {
@@ -30,11 +54,34 @@ namespace wrts.Controllers
         }
         public IActionResult ListParkingLot()
         {
+            var defaultCultures = new List<CultureInfo>()
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US"),
+            };
+
+            CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            var cultureItems = cinfo.Where(x => defaultCultures.Contains(x))
+                .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+                .ToList();
+            ViewData["Cultures"] = cultureItems;
+
             var parkinglot = dbContext.ParkingLot;
             return View(parkinglot);
         }
          public IActionResult ListParkingSpot(int id)
         {
+            var defaultCultures = new List<CultureInfo>()
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US"),
+            };
+
+            CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            var cultureItems = cinfo.Where(x => defaultCultures.Contains(x))
+                .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+                .ToList();
+            ViewData["Cultures"] = cultureItems;
 
             var parkingspot = dbContext.ParkingSpot.Where(x => x.ParkingLotID == id);
            
@@ -91,6 +138,19 @@ namespace wrts.Controllers
         }
         public IActionResult AddParkingSpot(int id)
         {
+            var defaultCultures = new List<CultureInfo>()
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US"),
+            };
+
+            CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            var cultureItems = cinfo.Where(x => defaultCultures.Contains(x))
+                .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+                .ToList();
+            ViewData["Cultures"] = cultureItems;
+
+            return View();
             List<SelectListItem> vehicles= new List<SelectListItem>();
             
             vehicles = (from i in dbContext.Vehicles.ToList()
