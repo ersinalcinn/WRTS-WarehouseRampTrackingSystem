@@ -34,11 +34,18 @@
                     @Html.DisplayFor(modelItem => item.ParkStatus)
             </td>
             <td>
-                @{
+                    @{
+                    WRTSDbContext dbContext = new WRTSDbContext();
+                    
+                    string vehicleidentity;
+                    if(item.VehicleID==0)
+                    {
+                    vehicleidentity = "NULL";
+                    }else {
+                            var spot = dbContext.Vehicles.FirstOrDefault(x => x.VehicleID == item.VehicleID);
+                            vehicleidentity = spot.driver_name + " " + spot.driver_surname + " " + spot.waybill_number;
 
-                        WRTSDbContext dbContext = new WRTSDbContext();
-                        var spot = dbContext.Vehicles.FirstOrDefault(x => x.VehicleID == item.VehicleID);
-                        string vehicleidentity = spot.driver_name+" "+spot.driver_surname+" "+spot.waybill_number;
+                    }  
                     }
                     @vehicleidentity
             </td>
@@ -53,8 +60,8 @@
             </td>
             <td>
                     
-                    <a asp-action="Edit" asp-route-id="@item.ParkingSpotID" class="btn btn-warning btn-block">Edit</a> 
-                    <a asp-action="Delete" asp-route-id="@item.ParkingSpotID" class="btn btn-danger btn-block">Delete</a>
+                    <a asp-action="EditParkingSpot" asp-route-id="@item.ParkingSpotID" class="btn btn-warning btn-block">Edit</a>
+                    <a asp-action="DeleteParkingSpot" asp-route-id="@item.ParkingSpotID" class="btn btn-danger btn-block">Delete</a>
             </td>
         </tr>
 }

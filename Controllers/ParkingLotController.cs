@@ -152,43 +152,30 @@ namespace wrts.Controllers
                 .ToList();
             ViewData["Cultures"] = cultureItems;
 
-            return View();
-            List<SelectListItem> vehicles= new List<SelectListItem>();
-            
-            vehicles = (from i in dbContext.Vehicles.ToList()
-                                             select new SelectListItem
-                                             {
+            List<SelectListItem> vehicles = new List<SelectListItem>();
 
-                                                 Text = i.citizenship_number,
-                                                 Value = i.VehicleID.ToString()
-                                             }).ToList();
+            vehicles = (from i in dbContext.Vehicles.ToList()
+                        select new SelectListItem
+                        {
+
+                            Text = i.citizenship_number,
+                            Value = i.VehicleID.ToString()
+                        }).ToList();
 
             vehicles.Add(new SelectListItem { Text = "NULL", Value = "0" });
             ViewBag.vehicle = vehicles;
 
             List<SelectListItem> parkinglot = (from i in dbContext.ParkingLot.ToList()
-                                             select new SelectListItem
-                                             {
-                                                 Text = i.ParkingLotName,
-                                                 Value = i.ParkingLotID.ToString()
-                                             }).ToList();
+                                               select new SelectListItem
+                                               {
+                                                   Text = i.ParkingLotName,
+                                                   Value = i.ParkingLotID.ToString()
+                                               }).ToList();
             ViewBag.parkinglot = parkinglot;
-     
+
             return View();
         }
         public IActionResult EditParkingLot(int id)
-        {
-            var parklot=dbContext.ParkingLot.FirstOrDefault(x=> x.ParkingLotID == id);
-            List<SelectListItem> degerler = (from i in dbContext.VehicleType.ToList()
-                                             select new SelectListItem
-                                             {
-                                                 Text = i.VehicleTypeName,
-                                                 Value = i.VehicleTypeID.ToString()
-                                             }).ToList();
-            ViewBag.dgr = degerler;
-            return View(parklot);
-        }
-        public IActionResult EditParkingSpot(int id)
         {
             var parklot = dbContext.ParkingLot.FirstOrDefault(x => x.ParkingLotID == id);
             List<SelectListItem> degerler = (from i in dbContext.VehicleType.ToList()
@@ -200,16 +187,106 @@ namespace wrts.Controllers
             ViewBag.dgr = degerler;
             return View(parklot);
         }
+        public IActionResult EditParkingSpot(int id)
+        {
+            var parkspot = dbContext.ParkingSpot.FirstOrDefault(x => x.ParkingSpotID == id);
+
+            List<SelectListItem> degerler = (from i in dbContext.Vehicles.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = i.driver_name + "  " + i.driver_surname + " " + i.citizenship_number,
+                                                 Value = i.VehicleID.ToString()
+                                             }).ToList();
+            degerler.Add(new SelectListItem { Text = "NULL", Value = "0" });
+            ViewBag.dgr = degerler;
+            List<SelectListItem> degerler1 = (from i in dbContext.ParkingLot.ToList()
+                                              select new SelectListItem
+                                              {
+                                                  Text = i.ParkingLotName,
+                                                  Value = i.ParkingLotID.ToString()
+                                              }).ToList();
+            ViewBag.dgr1 = degerler1;
+            return View(parkspot);
+        }
+
+        public IActionResult DeleteParkingSpot(int id)
+        {
+            var p = dbContext.ParkingSpot.FirstOrDefault(x => x.ParkingSpotID == id);
+            dbContext.ParkingSpot.Remove(p);
+            dbContext.SaveChanges();
+            TempData["message"] = "Silme işlemi başarıyla gerçekleştirildi...";
+            return RedirectToAction("ListParkingLot", "ParkingLot");
+
+        }
+        public IActionResult ChangeParkingLot(ParkingLot p)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Update(p);
+                dbContext.SaveChanges();
+                TempData["message"] = "ParkingLot güncellendi...";
+                return RedirectToAction("ListParkingLot", "ParkingLot");
+            }
+            else
+            {
+                TempData["message"] = "Lütfen geçerli bilgiler giriniz...";
+                return RedirectToAction("ListParkingLot", "ParkingLot");
+            }
+        }
+        public IActionResult ChangeParkingSpot(ParkingSpot p)
+        {
+            if (ModelState.IsValid)
+            {
+                var vehicle = dbContext.ParkingSpot.FirstOrDefault(x => x.VehicleID == p.VehicleID);
+                if (p.ParkStatus == "NULL" && p.VehicleID == 0 || p.ParkStatus == "FULL" && p.VehicleID != 0)
+
+                {
+
+
+                    if (vehicle == null && vehicle.VehicleID == p.VehicleID)
+                    {
+                        dbContext.Update(p);
+                        dbContext.SaveChanges();
+                        TempData["message"] = "ParkingSpot güncellendi...";
+                        return RedirectToAction("ListParkingLot", "ParkingLot");
+                    }
+                    else if (vehicle != null && vehicle.VehicleID == p.VehicleID)
+                    {
+                        dbContext.Update(p);
+                        dbContext.SaveChanges();
+                        TempData["message"] = "ParkingSpot güncellendi...";
+                        return RedirectToAction("ListParkingLot", "ParkingLot");
+                    }
+                    else
+                    {
+                        TempData["message"] = "Seçilen araç başka bir park yerinde...";
+                        return RedirectToAction("ListParkingLot", "ParkingLot");
+                    }
+
+                }
+                else
+                {
+                    TempData["message"] = "Lütfen geçerli bilgiler giriniz...";
+                    return RedirectToAction("ListParkingLot", "ParkingLot");
+                }
+            }
+            else
+            {
+                TempData["message"] = "Lütfen boşaltmak istediğiniz park alanındaki aracı siliniz...";
+                return RedirectToAction("ListParkingLot", "ParkingLot");
+            }
+        }
         public IActionResult CreateParkingSpot(ParkingSpot p)
         {
-            
-           
-            if (ModelState.IsValid) {
-                
-             if(p.VehicleID!=0)
-             {
+
+
+            if (ModelState.IsValid)
+            {
+
+                if (p.VehicleID != 0)
+                {
                     var parkspot = dbContext.ParkingSpot.FirstOrDefault(x => x.VehicleID == p.VehicleID);
-                    if(parkspot==null)
+                    if (parkspot == null)
                     {
                         dbContext.Add(p);
                         dbContext.SaveChanges();
@@ -218,21 +295,21 @@ namespace wrts.Controllers
                     }
                     else
                     {
-                        
+
                         TempData["message"] = "Seçilen araç mevcut...";
                         return RedirectToAction("ListParkingLot", "ParkingLot");
                     }
-                    
-             }
-            else
-            {
+
+                }
+                else
+                {
                     dbContext.Add(p);
                     dbContext.SaveChanges();
                     TempData["message"] = "Parking Spot eklendi";
                     return RedirectToAction("ListParkingLot", "ParkingLot");
 
-             }
-        }
+                }
+            }
             else
             {
                 TempData["message"] = "Uygun veri giriniz...";
