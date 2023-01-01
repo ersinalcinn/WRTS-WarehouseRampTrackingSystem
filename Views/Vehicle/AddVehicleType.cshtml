@@ -1,0 +1,29 @@
+﻿@model wrts.Models.VehicleType
+
+@{
+    ViewData["Title"] = "AddVehicleType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Add Vehicle Type</h4>
+<hr />
+<div class="row my-5 justify-content-center">
+    <div class="col-lg-3">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VehicleTypeName" class="control-label"></label>
+                <input asp-for="VehicleTypeName" class="form-control" />
+                <span asp-validation-for="VehicleTypeName" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <br>
+            @if (TempData["messagevt"] != null)
+            {
+                <h6 style="color:red; text-align:center;">@TempData["messagevt"]</h6>
+            }
+        </form>
+    </div>
+</div>

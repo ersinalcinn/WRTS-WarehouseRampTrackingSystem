@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using wrts.Models;
 using System.Linq;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
+using wrts.Migrations;
 
 namespace wrts.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         WRTSDbContext dbContext = new WRTSDbContext();
+        [HttpPost]
         public IActionResult Index()
         {
             var defaultCultures = new List<CultureInfo>()
@@ -74,6 +78,23 @@ namespace wrts.Controllers
                 return RedirectToAction("AddUser", "User");
             }
         }
+        public IActionResult Update(User u)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = dbContext.User.FirstOrDefault(x => x.Email == u.Email);
+                dbContext.Remove(user);
+                dbContext.Add(u);
+                dbContext.SaveChanges();
+                TempData["message2"] = "Kullanıcı Güncellendi";
+                return  RedirectToAction("Index","CallUserApi");
+            }
+            else
+            {
+                TempData["message2"] = "Kullanıcı bulunamadı";
+                return  RedirectToAction("Index", "CallUserApi");
+            }
+        }
 
         public IActionResult ListUser()
         {
@@ -92,6 +113,35 @@ namespace wrts.Controllers
             var user = dbContext.User;
             
             return View(user);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            List<SelectListItem> degerler = (from i in dbContext.Department.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = i.DepartmentName,
+                                                 Value = i.DepartmentID.ToString()
+                                             }).ToList();
+            ViewBag.dgr = degerler;
+            var user = dbContext.User.FirstOrDefault(x => x.UserID == id);
+            return View(user);
+        }
+        public IActionResult Delete(int id)
+        {
+            var user = dbContext.User.FirstOrDefault(x => x.UserID == id);
+            if (user != null)
+            {
+                dbContext.Remove(user);
+                dbContext.SaveChanges();
+                TempData["message1"] = "Kayıt silindi";
+                return RedirectToAction("Index", "CallUserApi");
+            }
+            else
+            {
+                TempData["message1"] = "Kullanıcı bulunamadı";
+                return RedirectToAction("Index", "CallUserApi");
+            }
         }
     }
 }

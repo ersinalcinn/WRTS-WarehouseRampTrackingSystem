@@ -1,17 +1,36 @@
 ﻿@model IEnumerable<wrts.Models.Vehicles>
+@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
 @{
     Layout = "_Layout";
 }
-
-
-<h1>VehicleList</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@Html.Translate("vehiclelist")</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.driver_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driver_surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.citizenship_number)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.VehicleTypeID)
             </th>
@@ -21,48 +40,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.waybill_number)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.driver_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.driver_surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.driver_language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.phone_number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.citizenship_number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.arrival_time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.departure_time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.vehicle_status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleTypeID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.company_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.waybill_number)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.driver_name)
             </td>
@@ -70,26 +54,20 @@
                 @Html.DisplayFor(modelItem => item.driver_surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.driver_language)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.phone_number)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.citizenship_number)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.arrival_time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.departure_time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.vehicle_status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleTypeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.company_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.waybill_number)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VehicleID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.VehicleID">Details</a> |
@@ -99,63 +77,7 @@
 }
     </tbody>
 </table>
-<div class="col-lg-6">
-
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Table with stripped rows</h5>
-
-            <!-- Table with stripped rows -->
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Start Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Brandon Jacob</td>
-                        <td>Designer</td>
-                        <td>28</td>
-                        <td>2016-05-25</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Bridie Kessler</td>
-                        <td>Developer</td>
-                        <td>35</td>
-                        <td>2014-12-05</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Ashleigh Langosh</td>
-                        <td>Finance</td>
-                        <td>45</td>
-                        <td>2011-08-12</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Angus Grady</td>
-                        <td>HR</td>
-                        <td>34</td>
-                        <td>2012-06-11</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Raheem Lehner</td>
-                        <td>Dynamic Division Officer</td>
-                        <td>47</td>
-                        <td>2011-04-19</td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End Table with stripped rows -->
-
-        </div>
+</div>
     </div>
+
 </div>

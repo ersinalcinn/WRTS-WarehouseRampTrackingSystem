@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using Microsoft.CodeAnalysis;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace wrts.Controllers
 {
+    [Authorize]
     public class ParkingLotController : Controller
     {
         WRTSDbContext dbContext = new WRTSDbContext();

@@ -1,42 +1,49 @@
 ﻿@model wrts.Models.User
+@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
+
 @{
-    ViewData["Title"] = "Add User";
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
+@{
+    ViewData["Title"] = @Html.Translate("kekle");
     Layout = "_Layout";
 }
 
-<h1>Add User</h1>
+<h1>@Html.Translate("kekle")</h1>
 <hr />
 <div class="row my-5 justify-content-center">
     <div class="col-lg-3">
         <form asp-action="Create" asp-controller="User">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+                <label asp-for="Email" class="control-label">@Html.Translate("email")</label>
                 <input asp-for="Email" class="form-control form-control-user" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">@Html.Translate("password")</label>
                 <input asp-for="Password" class="form-control form-control-user" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PasswordVerify" class="control-label"></label>
+                <label asp-for="PasswordVerify" class="control-label">@Html.Translate("repassword")</label>
                 <input asp-for="PasswordVerify" class="form-control form-control-user" />
                 <span asp-validation-for="PasswordVerify" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">@Html.Translate("name")</label>
                 <input asp-for="Name" class="form-control form-control-user" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
+                <label asp-for="Surname" class="control-label">@Html.Translate("surname")</label>
                 <input asp-for="Surname" class="form-control form-control-user" />
                 <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartmentID" class="control-label"></label>
+                <label asp-for="DepartmentID" class="control-label">@Html.Translate("department")</label>
                 <br>
             </div>
             @Html.DropDownListFor(m=>m.DepartmentID,(List<SelectListItem>)ViewBag.dgr)

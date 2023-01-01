@@ -95,16 +95,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" asp-controller="Home" asp-action="Profile">
-                                <i class="bi bi-person"></i>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
                         <li>
                             <a class="dropdown-item d-flex align-items-center" asp-controller="Login" asp-action="Logout">
                                 <i class="bi bi-box-arrow-right"></i>
@@ -146,7 +136,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="User" asp-action="ListUser">
+                                    <a asp-controller="CallUserApi" asp-action="Index">
                                         <i class="bi bi-circle"></i><span>@Html.Translate("userlist")</span>
                                     </a>
                                 </li>
@@ -206,13 +196,23 @@
                             </a>
                             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                 <li>
-                                    <a asp-controller="Vehicles" asp-action="AddVehicle">
+                                    <a asp-controller="Vehicle" asp-action="AddVehicle">
                                         <i class="bi bi-circle"></i><span>@Html.Translate("vehicleadd")</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="Vehicles" asp-action="ListVehicle">
+                                    <a asp-controller="Vehicle" asp-action="VehicleList">
                                         <i class="bi bi-circle"></i><span>@Html.Translate("vehiclelist")</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Vehicle" asp-action="AddVehicleType">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("addvehicletype")</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Vehicle" asp-action="ListVehicleType">
+                                        <i class="bi bi-circle"></i><span>@Html.Translate("listvehicletype")</span>
                                     </a>
                                 </li>
                             </ul>
@@ -253,7 +253,7 @@
                             </a>
                             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                 <li>
-                                    <a href="#">
+                                     <a asp-controller="Ramp" asp-action="ListRamp">
                                         <i class="bi bi-circle"></i><span>@Html.Translate("listramp1")</span>
                                     </a>
                                 </li>
@@ -279,12 +279,12 @@
                             </a>
                             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                                 <li>
-                                    <a href="#">
+                                     <a asp-controller="Vehicle" asp-action="VehicleList">
                                         <i class="bi bi-circle"></i><span>@Html.Translate("vehiclelist2")</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                     <a asp-controller="ParkingLot" asp-action="ListParkingLot">
                                         <i class="bi bi-circle"></i><span>@Html.Translate("parkinglot2")</span>
                                     </a>
                                 </li>

@@ -1,12 +1,18 @@
 ﻿@model IEnumerable<wrts.Models.User>
+@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
 
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
 @{
     ViewData["Title"] = "List User";
     Layout = "_Layout";
 }
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Users</h6>
+        <h6 class="m-0 font-weight-bold text-primary">@Html.Translate("userlist")</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -14,19 +20,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.Translate("email")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                            @Html.Translate("password")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                            @Html.Translate("name")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
+                            @Html.Translate("surname")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+               @Html.Translate("department")
             </th>
             <th></th>
         </tr>
@@ -50,8 +56,9 @@
                 @Html.DisplayFor(modelItem => item.DepartmentID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.UserID">@Html.Translate("edit")</a> |
+                                <a asp-action="Details" asp-route-id="@item.UserID">@Html.Translate("details")</a> |
+                                <a asp-action="Delete" asp-route-id="@item.UserID">@Html.Translate("sil")</a>
             </td>
         </tr>
 }

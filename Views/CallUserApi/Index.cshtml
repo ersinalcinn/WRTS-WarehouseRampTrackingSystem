@@ -1,0 +1,79 @@
+﻿@model IEnumerable<wrts.Models.User>
+@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
+@{
+    ViewData["Title"] = "List User";
+    Layout = "_Layout";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@Html.Translate("userlist")</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.Translate("email")
+                        </th>
+                        <th>
+                            @Html.Translate("password")
+                        </th>
+                        <th>
+                            @Html.Translate("name")
+                        </th>
+                        <th>
+                            @Html.Translate("surname")
+                        </th>
+                        <th>
+                            @Html.Translate("department")
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Password)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Surname)
+                            </td>
+                            <td>
+                                @{
+
+                                    WRTSDbContext dbContext = new WRTSDbContext();
+                                    var parkinglot = dbContext.Department.FirstOrDefault(x => x.DepartmentID == item.DepartmentID);
+                                    string typename = parkinglot.DepartmentName;
+                                }
+                                @typename
+                            </td>
+                            <td>
+                                <a asp-action="Edit"  asp-controller="User"  asp-route-id="@item.UserID">@Html.Translate("edit")</a> |
+                                <a asp-action="Delete"  asp-controller="User"  asp-route-id="@item.UserID">@Html.Translate("sil")</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (TempData["message1"] != null)
+            {
+                <h6 style="color:red; text-align:center;">@TempData["message1"]</h6>
+            }
+        </div>
+    </div>
+</div>

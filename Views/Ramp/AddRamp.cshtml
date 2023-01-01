@@ -1,23 +1,29 @@
 ﻿@model wrts.Models.Ramp
+@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
 
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
 @{
     ViewData["Title"] = "Add Ramp";
     Layout = "_Layout";
 }
 
-<h1>Add Ramp</h1>
+<h1>@Html.Translate("rampadd")</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateRamp" asp-controller="Ramp">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Rampa Sayısı </label>
+                <label class="control-label">@Html.Translate("rampsay")</label>
                 <input type="number" name="num" class="form-control form-control-user" />
             </div>
             <br>
             <div class="form-group">
-                <input type="submit" value="Ekle" class="btn btn-primary" />
+                <input type="submit" value="@Html.Translate("add")" class="btn btn-primary" />
             </div>
         </form>
     </div>

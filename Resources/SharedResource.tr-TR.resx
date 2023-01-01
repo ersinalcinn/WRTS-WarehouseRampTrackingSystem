@@ -117,8 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="addvehicletype" xml:space="preserve">
+    <value>Araç Tipi Ekle</value>
+  </data>
+  <data name="aracid" xml:space="preserve">
+    <value>Araç ID</value>
+  </data>
+  <data name="bos" xml:space="preserve">
+    <value>Boş</value>
+  </data>
+  <data name="department" xml:space="preserve">
+    <value>Departman</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>Detay</value>
+  </data>
   <data name="dispatcherop" xml:space="preserve">
     <value>Sevk Görevlisi İşlemleri</value>
+  </data>
+  <data name="dolu" xml:space="preserve">
+    <value>Dolu</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>E-Posta</value>
+  </data>
+  <data name="kekle" xml:space="preserve">
+    <value>Kullanıcı Ekle</value>
   </data>
   <data name="kontrolpanel" xml:space="preserve">
     <value>Kontrol Panel</value>
@@ -126,8 +156,14 @@
   <data name="listramp1" xml:space="preserve">
     <value>Rampa Listesi</value>
   </data>
+  <data name="listvehicletype" xml:space="preserve">
+    <value>Araç Türü Listesi</value>
+  </data>
   <data name="msj1" xml:space="preserve">
     <value>hoşgeldiniz</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Ad</value>
   </data>
   <data name="nofity" xml:space="preserve">
     <value>Bildirimler</value>
@@ -156,8 +192,14 @@
   <data name="parkingspotadd" xml:space="preserve">
     <value>Araç Park Yeri Ekle</value>
   </data>
+  <data name="password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
   <data name="rampadd" xml:space="preserve">
     <value>Rampa Ekle</value>
+  </data>
+  <data name="rampid" xml:space="preserve">
+    <value>Rampa ID</value>
   </data>
   <data name="ramplist" xml:space="preserve">
     <value>Rampa Listesi</value>
@@ -168,8 +210,17 @@
   <data name="rampop1" xml:space="preserve">
     <value>Rampa İşlemleri</value>
   </data>
+  <data name="rampsay" xml:space="preserve">
+    <value>Rampa Sayısı</value>
+  </data>
   <data name="rampstaffop" xml:space="preserve">
     <value>Rampa Görevlisi İşlemleri</value>
+  </data>
+  <data name="rampstate" xml:space="preserve">
+    <value>Rampa Durumu</value>
+  </data>
+  <data name="repassword" xml:space="preserve">
+    <value>Şifre Tekrar</value>
   </data>
   <data name="securityop" xml:space="preserve">
     <value>Güvenlik Görevlisi İşlemleri</value>
@@ -177,11 +228,17 @@
   <data name="shipmentop" xml:space="preserve">
     <value>Sevkiyat İşlemleri</value>
   </data>
+  <data name="sil" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="surname" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
   <data name="useradd" xml:space="preserve">
     <value>Kullanıcı Ekle</value>
   </data>
   <data name="userlist" xml:space="preserve">
-    <value>Kullanıları Listele</value>
+    <value>Kullanıcı Listesi</value>
   </data>
   <data name="userop" xml:space="preserve">
     <value>Kullanıcı İşlemleri</value>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using wrts.Models;
 
 namespace wrts.Controllers
 {
-
+    [Authorize]
     public class RampController : Controller
     {
         WRTSDbContext dbContext = new WRTSDbContext();
@@ -77,6 +78,22 @@ namespace wrts.Controllers
             }
 
             return RedirectToAction("AddRamp","Ramp");
+        }
+        public IActionResult Delete(int id)
+        {
+            var ramp = dbContext.Ramps.FirstOrDefault(x => x.RampID == id);
+            if (ramp != null)
+            {
+                dbContext.Remove(ramp);
+                dbContext.SaveChanges();
+                TempData["message1"] = "Rampa silindi";
+                return RedirectToAction("ListRamp", "Ramp");
+            }
+            else
+            {
+                TempData["message1"] = "Rampa bilgisi bulunamadı";
+                return RedirectToAction("ListRamp", "Ramp");
+            }
         }
     }
 }

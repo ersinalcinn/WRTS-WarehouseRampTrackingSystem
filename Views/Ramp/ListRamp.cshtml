@@ -1,13 +1,18 @@
 ﻿@model IEnumerable<wrts.Models.Ramp>
+@using Microsoft.AspNetCore.Localization
+@using MultiLanguage.ExtensionMethods
 
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureList = ViewData["Cultures"] as List<SelectListItem>;
+}
 @{
     ViewData["Title"] = "Ramp List";
 }
 
-<h1>Ramp List</h1>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Users</h6>
+        <h6 class="m-0 font-weight-bold text-primary">@Html.Translate("rampadd")</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -15,13 +20,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RampID)
+                            @Html.Translate("rampid")
             </th>
              <th>
-                @Html.DisplayNameFor(model => model.VehiclesID)
+                            @Html.Translate("aracid")
             </th>
             <th>
-               Rampa Durumu
+                            @Html.Translate("rampstate")
             </th>
             <th></th>
         </tr>
@@ -48,17 +53,15 @@
                     @{
                         if (item.VehiclesID == 0)
                         {
-                             @:<h4 style = "color:green" >BOŞ</h4 >
+                                        @:<h4 style="color:green">@Html.Translate("bos")</h4>
                         }else
                         {
-                           @: <h4 style="color:red">DOLU</h4>
+                                        @: <h4 style="color:red">@Html.Translate("dolu")</h4>
                         }
                     }
                 </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RampID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RampID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RampID">Delete</a>
+                                <a asp-action="Delete" asp-controller="Ramp" asp-route-id="@item.RampID">@Html.Translate("sil")</a>
                 
                 
             </td>
