@@ -15,6 +15,7 @@ namespace wrts.Models
         public string Email { get; set; }
         [Required]
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [Display(Name = "Verify Password")]
         [Compare("Password", ErrorMessage = "Şifreler eşleşmiyor...")]

@@ -9,6 +9,8 @@ namespace wrts.Models
         [Key]
 
         public int RampID { get; set; }
+        
+        [Display(Name = "Araç Bilgileri ")]
         public int VehiclesID { get; set; }
        
       

@@ -6,7 +6,8 @@ namespace wrts.Models
     {
         [Key]
         public int DepartmentID { get; set; }
-
+        [Required]
+        [Display(Name = "Department Name  ")]
         public string DepartmentName { get; set; }
 
         public enum Departments
