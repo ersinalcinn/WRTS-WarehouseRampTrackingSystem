@@ -10,8 +10,8 @@ using wrts.Models;
 namespace wrts.Migrations
 {
     [DbContext(typeof(WRTSDbContext))]
-    [Migration("20221226074231_fk-rampvehicleid removed")]
-    partial class fkrampvehicleidremoved
+    [Migration("20230102063616_datatypess")]
+    partial class datatypess
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,7 @@ namespace wrts.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DepartmentName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartmentID");
@@ -63,8 +64,10 @@ namespace wrts.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ParkStatusID")
-                        .HasColumnType("int");
+                    b.Property<string>("ParkStatus")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("ParkingLotID")
                         .HasColumnType("int");
@@ -90,6 +93,23 @@ namespace wrts.Migrations
                     b.HasKey("RampID");
 
                     b.ToTable("Ramps");
+                });
+
+            modelBuilder.Entity("wrts.Models.RampStates", b =>
+                {
+                    b.Property<int>("RampStatesID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RampStateName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("RampStatesID");
+
+                    b.ToTable("RampStates");
                 });
 
             modelBuilder.Entity("wrts.Models.User", b =>
@@ -140,6 +160,7 @@ namespace wrts.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("VehicleTypeName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VehicleTypeID");

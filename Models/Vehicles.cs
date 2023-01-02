@@ -39,7 +39,6 @@ namespace wrts.Models
         public DateTime arrival_time {  get; set; }
         [Display(Name = "Departure Time")]
         public DateTime departure_time { get; set; }
-        [Required(ErrorMessage = "Vehicle status can not be empty...")]
         [Display(Name = "Vehicle Status")]
         public int vehicle_status { get; set; }
         [Display(Name = "Description")]

@@ -140,6 +140,38 @@ namespace wrts.Controllers
                 return RedirectToAction("AddVehicle", "Vehicle");
             }
         }
+        public IActionResult DeleteType(int id)
+        {
+            var vehicle = dbContext.VehicleType.FirstOrDefault(x => x.VehicleTypeID == id);
+            if (vehicle != null)
+            {
+                dbContext.Remove(vehicle);
+                dbContext.SaveChanges();
+                TempData["message4"] = "Araç türü silindi";
+                return RedirectToAction("ListVehicleType", "Vehicle");
+            }
+            else
+            {
+                TempData["message4"] = "Araç tür bilgisi bulunamadı";
+                return RedirectToAction("ListVehicleType", "Vehicle");
+            }
+        }
+        public IActionResult DeleteVehicle(int id)
+        {
+            var vehicle = dbContext.Vehicles.FirstOrDefault(x => x.VehicleID == id);
+            if (vehicle != null)
+            {
+                dbContext.Remove(vehicle);
+                dbContext.SaveChanges();
+                TempData["message4"] = "Araç silindi";
+                return RedirectToAction("VehicleList", "Vehicle");
+            }
+            else
+            {
+                TempData["message4"] = "Araç bilgisi bulunamadı";
+                return RedirectToAction("VehicleList", "Vehicle");
+            }
+        }
 
     }
 }
